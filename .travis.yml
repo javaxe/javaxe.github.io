@@ -1,5 +1,10 @@
 os: windows
-
+language: node_js
+node_js:
+- stable
+cache:
+  directories:
+  - node_modules
 deploy:
   provider: npm
   email: roghibmorgan@gmail.com
