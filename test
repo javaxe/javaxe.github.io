@@ -1,6 +1,1 @@
-file-a.out: input.in
-    foo-bin input.in file-a.out file-b.out   
-
-file-b.out: file-a.out
-    #do nothing
-    noop
+NODE_ENV=production node --prof app.js
