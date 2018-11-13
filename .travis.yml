@@ -1,3 +1,4 @@
+os: windows
 deploy:
   provider: npm
   email: roghibmorgan@gmail.com
