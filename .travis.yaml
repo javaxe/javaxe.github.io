@@ -1,4 +1,0 @@
-os: osx
-branches:
-  only:
-    - test
