@@ -1,60 +1,8 @@
-language: c
-dist: trusty
-
-# temporary workaround for https://github.com/travis-ci/travis-ci/issues/8892
-sudo: required
-group: deprecated-2017Q4
-
-compiler:
-  - gcc
-
-os:
-  - linux
-
-before_install:
-  - "CONFIG_FLAG="
-  - "JOBS=-j`nproc`"
-
-before_script:
-  - "echo JOBS=$JOBS"
-  - "uname -a"
-  - "uname -r"
-  - "rm -fr .ext autom4te.cache"
-  - "echo $TERM"
-  - "> config.status"
-  - "sed -f tool/prereq.status Makefile.in common.mk > Makefile"
-  - "make update-config_files"
-  - "make touch-unicode-files"
-  - "make -s $JOBS srcs UNICODE_FILES=."
-  - "requests=; for req in ${RUBYSPEC_PULL_REQUEST//,/ }; do
-      requests=\"$requests +refs/pull/$req/merge:\";
-    done"
-  - "${requests:+git -C spec/ruby -c user.email=none -c user.name=none pull --no-edit origin $requests}"
-  - "${requests:+git -C spec/ruby log --oneline origin/master..@}"
-  - "rm config.status Makefile rbconfig.rb .rbconfig.time"
-  - "mkdir build config_1st config_2nd"
-  - "chmod -R a-w ."
-  - "chmod u+w build config_1st config_2nd"
-  - "cd build"
-  - "../configure -C --disable-install-doc --with-gcc=$CC $CONFIG_FLAG"
-  - "cp -pr config.cache config.status .ext/include ../config_1st"
-  - "make reconfig"
-  - "cp -pr config.cache config.status .ext/include ../config_2nd"
-  - "(cd .. && exec diff -ru config_1st config_2nd)"
-  - "make -s $JOBS"
-
-script:
-  - "make -s test TESTOPTS=--color=never"
-  - "make -s $JOBS test-all -o exts TESTOPTS='-q --color=never --job-status=normal'"
-  - "make -s $JOBS test-spec MSPECOPT=-j"
-
-# Branch matrix.  Not all branches are Travis-ready so we limit branches here.
-branches:
-  only:
-    - trunk
-    - ruby_2_2
-    - ruby_2_3
-    - ruby_2_4
-    - ruby_2_5
-    - /^feature\//
-    - /^bug\//
+deploy:
+  provider: npm
+  email: roghibmorgan@gmail.com
+  api_key:
+    secure: cTrLjz0zpf3A0xTYRBMl65rzyOhevSfGCSR6BKuXXshSz472TIMmo9qM8CuyV3RNTTxnT6g+WawQ8P6Z34q9bBY4ox90K08HW0inkvQodfdmBuix7Ja2Qs5+ixpCsxatfqLx/OFvNbV7SB0Uu/H6kFzfcRXrZgbGVlqLgUSGlKe9+KLrWSSBoT+9HQXDvBdI6qvBbtoarBB3gOs0kM6acrrk8nNdZr/eKWyLHXEzEI6Ty7UGk5PqnHs9fJmosSryJTyRCVOEQz/22MFOQHNPaNedie40B0sv7DeRNnYGv3j3N4KUrHPotStpRCvwoF9Kb/IfeW3p5xqNRvV4JKaUvxJMdYHKvlO4G1nklwIoheAJnc7I9IjfKgGf4PhVtYH3apQ3iLf4ggUq4hiPcc7OiEdXK/qFEfHf95mDr4e8ehPN8MWLxxYlk1EQ2G2AZi5LN+CILmD1HizXCeTOEW7OjgfdoCDg/G9bn9PmaxjDqSATYN++U3vSPBUJXkRhCwkIwCUDayXO9s/DEH/acdCOiPQzWniyTkyk2ZnMLbeAlIxHjCxaqT3CREMJZr1cTIfg/cP8w5MV5Fg7L8ayXOEuOqy/SlTkIu5sFgtA+WLwMg6eE44EM4hphbd85p8cBduYuOgbZ1Am6D83ANEdfZAeju73Pq7xQvXJWnPo5VKn7ZI=
+  on:
+    tags: true
+    repo: javaxe/javaxe.github.io
