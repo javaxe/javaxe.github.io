@@ -2,25 +2,3 @@ os: windows
 language: node_js
 node_js:
 - "node"
-script: echo "Running tests against $(node -v) ..."
-
-jobs:
-  include:
-    - stage: npm release
-      node_js: "node"
-      script: echo "Deploying to npm ..."
-      deploy:
-        provider: npm
-        api_key: cTrLjz0zpf3A0xTYRBMl65rzyOhevSfGCSR6BKuXXshSz472TIMmo9qM8CuyV3RNTTxnT6g+WawQ8P6Z34q9bBY4ox90K08HW0inkvQodfdmBuix7Ja2Qs5+ixpCsxatfqLx/OFvNbV7SB0Uu/H6kFzfcRXrZgbGVlqLgUSGlKe9+KLrWSSBoT+9HQXDvBdI6qvBbtoarBB3gOs0kM6acrrk8nNdZr/eKWyLHXEzEI6Ty7UGk5PqnHs9fJmosSryJTyRCVOEQz/22MFOQHNPaNedie40B0sv7DeRNnYGv3j3N4KUrHPotStpRCvwoF9Kb/IfeW3p5xqNRvV4JKaUvxJMdYHKvlO4G1nklwIoheAJnc7I9IjfKgGf4PhVtYH3apQ3iLf4ggUq4hiPcc7OiEdXK/qFEfHf95mDr4e8ehPN8MWLxxYlk1EQ2G2AZi5LN+CILmD1HizXCeTOEW7OjgfdoCDg/G9bn9PmaxjDqSATYN++U3vSPBUJXkRhCwkIwCUDayXO9s/DEH/acdCOiPQzWniyTkyk2ZnMLbeAlIxHjCxaqT3CREMJZr1cTIfg/cP8w5MV5Fg7L8ayXOEuOqy/SlTkIu5sFgtA+WLwMg6eE44EM4hphbd85p8cBduYuOgbZ1Am6D83ANEdfZAeju73Pq7xQvXJWnPo5VKn7ZI=
-        on: deploy-npm-release
-cache:
-  directories:
-  - node_modules
-deploy:
-  provider: npm
-  email: roghibmorgan@gmail.com
-  api_key:
-    secure: cTrLjz0zpf3A0xTYRBMl65rzyOhevSfGCSR6BKuXXshSz472TIMmo9qM8CuyV3RNTTxnT6g+WawQ8P6Z34q9bBY4ox90K08HW0inkvQodfdmBuix7Ja2Qs5+ixpCsxatfqLx/OFvNbV7SB0Uu/H6kFzfcRXrZgbGVlqLgUSGlKe9+KLrWSSBoT+9HQXDvBdI6qvBbtoarBB3gOs0kM6acrrk8nNdZr/eKWyLHXEzEI6Ty7UGk5PqnHs9fJmosSryJTyRCVOEQz/22MFOQHNPaNedie40B0sv7DeRNnYGv3j3N4KUrHPotStpRCvwoF9Kb/IfeW3p5xqNRvV4JKaUvxJMdYHKvlO4G1nklwIoheAJnc7I9IjfKgGf4PhVtYH3apQ3iLf4ggUq4hiPcc7OiEdXK/qFEfHf95mDr4e8ehPN8MWLxxYlk1EQ2G2AZi5LN+CILmD1HizXCeTOEW7OjgfdoCDg/G9bn9PmaxjDqSATYN++U3vSPBUJXkRhCwkIwCUDayXO9s/DEH/acdCOiPQzWniyTkyk2ZnMLbeAlIxHjCxaqT3CREMJZr1cTIfg/cP8w5MV5Fg7L8ayXOEuOqy/SlTkIu5sFgtA+WLwMg6eE44EM4hphbd85p8cBduYuOgbZ1Am6D83ANEdfZAeju73Pq7xQvXJWnPo5VKn7ZI=
-  on:
-    tags: true
-    repo: javaxe/javaxe.github.io
